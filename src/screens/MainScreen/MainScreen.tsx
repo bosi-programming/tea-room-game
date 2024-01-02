@@ -1,20 +1,21 @@
-import { Heading, Input } from '@/components';
+import { Heading } from '@/components';
+import { NoBackground } from '@/templates';
+import { useNavigate } from 'react-router-dom';
 
 export function MainScreen() {
+  const navigate = useNavigate();
+
   return (
-    <div className="flex justify-center flex-col bg-stone-800 h-screen">
-      <div className="flex flex-col justify-between p-10 text-center bg-green border-2 border-peach w-full aspect-video">
-        <Heading className="text-5xl underline">
-          Prepare tea for your friends
-        </Heading>
-        <Input
-          labelChildren="How many friends are your receiving"
-          className="w-3/12 my-4 mx-auto"
-        />
-        <button className="w-fit mx-auto">
-          <Heading>Start Game</Heading>
-        </button>
-      </div>
-    </div>
+    <NoBackground>
+      <Heading className="text-5xl underline mb-20">
+        Prepare tea for your friends
+      </Heading>
+      <button
+        onClick={() => navigate('/preparation')}
+        className="w-fit mx-auto hover:scale-125"
+      >
+        <Heading>Start Game</Heading>
+      </button>
+    </NoBackground>
   );
 }
