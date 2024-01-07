@@ -5,6 +5,7 @@ export interface TeaPreparation {
   tea: string;
   preparation: string;
   numberOfCups: number;
+  ready: boolean;
   setTeaPreparation: (teaPreparation: Partial<TeaPreparation>) => void;
 }
 
@@ -13,6 +14,7 @@ export const teaStoreCreator: StateCreator<TeaPreparation> = (set) => ({
   tea: 'black',
   preparation: 'gongfu',
   numberOfCups: 7,
+  ready: false,
   setTeaPreparation: (teaPreparation) =>
     set({
       ...teaPreparation,

@@ -78,7 +78,10 @@ export function Preparation() {
           </div>
         </div>
         <button
-          onClick={() => navigate('/preparation')}
+          onClick={() => {
+            setTeaPreparation({ ready: true });
+            navigate('/tea-party');
+          }}
           className="w-fit mx-auto hover:scale-125"
         >
           <Heading>I&apos;m ready</Heading>
