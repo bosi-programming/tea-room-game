@@ -1,4 +1,5 @@
 import { Heading, Paragraph, Selector } from '@/components';
+import { useTeaStore } from '@/stores';
 import { NoBackground } from '@/templates';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,6 +25,8 @@ const preparationOptions = [
 
 export function PreparationScreen() {
   const navigate = useNavigate();
+  const { numberOfPersons, tea, preparation, setTeaPreparation } =
+    useTeaStore();
 
   return (
     <NoBackground className="justify-between">
@@ -45,17 +48,30 @@ export function PreparationScreen() {
               How many friends are coming over for tea?
             </Paragraph>
             <Selector
+              value={numberOfPersons.toString()}
               options={numberOfPeopleOptions}
+              onChange={(e) =>
+                setTeaPreparation({ numberOfPersons: Number(e.target.value) })
+              }
               className="col-start-6 w-32 mb-0"
             />
             <Paragraph className="col-start-3 col-end-6">
               What tea will you prepare for them?
             </Paragraph>
-            <Selector options={teaOptions} className="col-start-6 w-32 mb-0" />
+            <Selector
+              value={tea}
+              onChange={(e) => setTeaPreparation({ tea: e.target.value })}
+              options={teaOptions}
+              className="col-start-6 w-32 mb-0"
+            />
             <Paragraph className="col-start-3 col-end-6">
               In what way will you prepare the tea?
             </Paragraph>
             <Selector
+              value={preparation}
+              onChange={(e) =>
+                setTeaPreparation({ preparation: e.target.value })
+              }
               options={preparationOptions}
               className="col-start-6 w-32 mb-0"
             />
