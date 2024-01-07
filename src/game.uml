@@ -1,0 +1,38 @@
+@startuml
+
+class VisualNovelGame {
+  TextUI ui
+  Background background
+  GameState state
+  Scene[] story
+}
+
+class Scene {
+  Actions[] actions
+}
+
+class Actions {
+  String text
+  String[]? options
+}
+
+class Character {
+  String name
+  String currentAsset
+  String[] assets
+  String[] likes
+  String[] dislikes
+  == Methods ==
+  int points(String[] characteristics)
+}
+
+class GameState {
+  Scene currentScene
+  Character[] characters
+  int currentSceneIndex
+  int currentActionIndex
+  int points
+}
+
+
+@enduml

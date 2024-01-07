@@ -17,7 +17,7 @@ export function Background({
         style={{
           backgroundImage: `url(${backgroundUrl})`,
         }}
-        className={`bg-scroll bg-cover flex flex-col justify-center p-10 text-center bg-green border-2 border-peach w-full max-h-full aspect-video ${className}`}
+        className={`bg-scroll bg-cover flex flex-col justify-end text-center bg-green border-2 border-peach w-full max-h-full aspect-video ${className}`}
       >
         {children}
       </div>
