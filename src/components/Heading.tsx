@@ -9,7 +9,8 @@ export function Heading({ className, children }: HeadingProps) {
   return (
     <h1
       className={classNames(
-        'text-4xl',
+        'text-3xl',
+        'xl:text-4xl',
         'font-bold',
         'font-mono',
         'text-pink',

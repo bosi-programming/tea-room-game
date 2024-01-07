@@ -1,2 +1,3 @@
-export * from './MainScreen';
-export * from './PreparationScreen';
+export * from './Main';
+export * from './Credits';
+export * from './Preparation';

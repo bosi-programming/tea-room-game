@@ -23,14 +23,14 @@ const preparationOptions = [
   { id: 'regular', label: 'Regular' },
 ];
 
-export function PreparationScreen() {
+export function Preparation() {
   const navigate = useNavigate();
   const { numberOfPersons, tea, preparation, setTeaPreparation } =
     useTeaStore();
 
   return (
     <NoBackground className="justify-between">
-      <Heading className="grow-0 text-5xl underline mb-20">
+      <Heading className="grow-0 text-5xl underline mb-10 xl:mb-20">
         Preparations
       </Heading>
       <div className="grow flex flex-col justify-around">
