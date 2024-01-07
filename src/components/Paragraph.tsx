@@ -14,7 +14,7 @@ export function Paragraph({ className, children }: ParagraphProps) {
         'pb-2',
         'font-mono',
         'text-slate-900',
-        'dark:text-peach',
+        'text-peach',
         'leading-relaxed',
         className,
       )}

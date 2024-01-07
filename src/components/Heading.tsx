@@ -12,8 +12,7 @@ export function Heading({ className, children }: HeadingProps) {
         'text-4xl',
         'font-bold',
         'font-mono',
-        'text-slate-900',
-        'dark:text-pink',
+        'text-pink',
         className,
       )}
     >
