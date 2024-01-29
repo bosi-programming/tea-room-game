@@ -74,3 +74,11 @@ export class Character {
     return this._assets;
   }
 }
+
+export const characters = [
+  new Character('Momo', 'girl-1', ['weak', 'mellow'], ['strong', 'velvety']),
+  new Character('Nia', 'girl-2', ['weak', 'velvety'], ['dark', 'sweet']),
+  new Character('Kai', 'boy-1', ['dark', 'strong'], ['sweet', 'mellow']),
+  new Character('Kleverson', 'boy-2', ['sweet', 'mellow'], ['strong', 'dark']),
+  new Character('Mio', 'woman', ['strong', 'dark'], ['refreshing', 'weak']),
+];

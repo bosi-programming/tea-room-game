@@ -1,12 +1,15 @@
 import { GameText } from '@/components';
+import { welcome } from '@/scenes/welcome';
 import { useTeaStore } from '@/stores';
 import { Background } from '@/templates/Background';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function TeaPartyScene() {
   const navigate = useNavigate();
-  const { ready } = useTeaStore();
+  const { ready, numberOfPersons, tea } = useTeaStore();
+  const [scene] = useState(welcome(numberOfPersons, tea));
+  const [action] = useState(0);
 
   useEffect(() => {
     if (!ready) {
@@ -16,10 +19,7 @@ export function TeaPartyScene() {
 
   return (
     <Background backgroundUrl="/assets/backgrounds/sitting_room.png">
-      <GameText>
-        You are a tea master. Your friends are coming over for tea. You need to
-        prepare tea for them.
-      </GameText>
+      <GameText>{scene[action].text}</GameText>
     </Background>
   );
 }
