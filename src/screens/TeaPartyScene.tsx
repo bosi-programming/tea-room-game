@@ -9,7 +9,15 @@ export function TeaPartyScene() {
   const navigate = useNavigate();
   const { ready, numberOfPersons, tea } = useTeaStore();
   const [scene] = useState(welcome(numberOfPersons, tea));
-  const [action] = useState(0);
+  const [action, setAction] = useState(0);
+
+  const handleNext = () => {
+    if (action < scene.length - 1) {
+      setAction(action + 1);
+    } else {
+      navigate('/tea-party');
+    }
+  };
 
   useEffect(() => {
     if (!ready) {
@@ -19,7 +27,7 @@ export function TeaPartyScene() {
 
   return (
     <Background backgroundUrl="/assets/backgrounds/sitting_room.png">
-      <GameText>{scene[action].text}</GameText>
+      <GameText next={handleNext}>{scene[action].text}</GameText>
     </Background>
   );
 }
