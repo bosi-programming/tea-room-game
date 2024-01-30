@@ -25,6 +25,14 @@ export function TeaPartyScene() {
     }
   };
 
+  const handlePrevious = () => {
+    if (action > 0) {
+      setAction(action - 1);
+    } else {
+      navigate('/tea-party');
+    }
+  };
+
   useEffect(() => {
     if (!ready) {
       navigate('/');
@@ -33,7 +41,9 @@ export function TeaPartyScene() {
 
   return (
     <Background backgroundUrl="/assets/backgrounds/sitting_room.png">
-      <GameText next={handleNext}>{scene[action].text}</GameText>
+      <GameText next={handleNext} previous={handlePrevious}>
+        {scene[action].text}
+      </GameText>
     </Background>
   );
 }

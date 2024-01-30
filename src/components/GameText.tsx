@@ -1,20 +1,36 @@
 import classNames from 'classnames';
 import { Paragraph } from './Paragraph';
 import { useEffect } from 'react';
+import { Button } from './Button';
 
 export interface ParagraphProps {
   className?: string;
   children?: React.ReactNode;
   next?: () => void;
+  previous?: () => void;
+  disablePrevious?: boolean;
+  disableNext?: boolean;
 }
 
-export function GameText({ className, children, next }: ParagraphProps) {
+export function GameText({
+  className,
+  children,
+  next,
+  previous,
+  disableNext,
+  disablePrevious,
+}: ParagraphProps) {
   useEffect(() => {
-    if (!next) {
-      return;
-    }
+    const canPrevious = previous && !disablePrevious;
+    const canNext = next && !disableNext;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
+      if (e.key === 'ArrowLeft' && canPrevious) {
+        previous();
+      }
+      if (
+        (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight') &&
+        canNext
+      ) {
         next();
       }
     };
@@ -24,7 +40,7 @@ export function GameText({ className, children, next }: ParagraphProps) {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [next]);
+  }, [disableNext, disablePrevious, next, previous]);
 
   return (
     <div
@@ -35,17 +51,29 @@ export function GameText({ className, children, next }: ParagraphProps) {
         'p-4',
         'w-full',
         'h-[200px]',
-        'flex items-center justify-center',
+        'flex flex-col justify-center',
         className,
       )}
     >
-      <Paragraph>{children}</Paragraph>
-      <button
-        className={'pl-2 text-xl xl:text-2xl dark:text-peach'}
-        onClick={next}
-      >
-        {'>'}
-      </button>
+      <Paragraph className="flex flex-col flex-grow justify-center">
+        {children}
+      </Paragraph>
+      <div className={'flex justify-end'}>
+        <Button
+          className={'w-2/12 pl-2 mr-4 text-xl xl:text-2xl dark:bg-pink'}
+          onClick={previous}
+          disabled={disablePrevious}
+        >
+          {'< Previous'}
+        </Button>
+        <Button
+          className={'w-2/12 pl-2 text-xl xl:text-2xl dark:bg-pink'}
+          onClick={next}
+          disabled={disableNext}
+        >
+          {'Next >'}
+        </Button>
+      </div>
     </div>
   );
 }
