@@ -10,7 +10,6 @@ export interface ButtonProps {
 
 const baseClasses = [
   'text-center',
-  'w-6/12',
   'rounded',
   'border',
   'px-4',

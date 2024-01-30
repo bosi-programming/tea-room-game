@@ -1,7 +1,6 @@
 export class Character {
   private _name: string;
   private _assets: {
-    normal: string;
     happy: string;
     smile: string;
     smug: string;
@@ -14,13 +13,12 @@ export class Character {
   constructor(name: string, type: string, likes: string[], dislikes: string[]) {
     this._name = name;
     this._assets = {
-      normal: `./assets/characters/${type}-normal.png`,
       happy: `./assets/characters/${type}-happy.png`,
       smile: `./assets/characters/${type}-smile.png`,
       smug: `./assets/characters/${type}-smug.png`,
       annoyed: `./assets/characters/${type}-annoyed.png`,
     };
-    this._currentAsset = this._assets.normal;
+    this._currentAsset = this._assets.smile;
     this._likes = likes;
     this._dislikes = dislikes;
   }
@@ -36,7 +34,7 @@ export class Character {
     });
     switch (points) {
       case 0:
-        this._currentAsset = this._assets.normal;
+        this._currentAsset = this._assets.smile;
         break;
       case 1:
         this._currentAsset = this._assets.smile;

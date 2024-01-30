@@ -14,12 +14,19 @@ export function TeaPartyScene() {
     const character = characters[i];
     guests.push(character);
   }
+  const [showGuests, setShowGuests] = useState(false);
   const [scene] = useState(welcome(numberOfPersons, tea, guests));
   const [action, setAction] = useState(0);
 
   const handleNext = () => {
     if (action < scene.length - 1) {
       setAction(action + 1);
+      if (scene[action + 1].action === 'showGuests') {
+        setShowGuests(true);
+      }
+      if (scene[action + 1].action === 'hideGuests') {
+        setShowGuests(false);
+      }
     } else {
       navigate('/tea-party');
     }
@@ -28,6 +35,12 @@ export function TeaPartyScene() {
   const handlePrevious = () => {
     if (action > 0) {
       setAction(action - 1);
+      if (scene[action - 1].action === 'showGuests') {
+        setShowGuests(true);
+      }
+      if (scene[action - 1].action === 'hideGuests') {
+        setShowGuests(false);
+      }
     } else {
       navigate('/tea-party');
     }
@@ -41,6 +54,18 @@ export function TeaPartyScene() {
 
   return (
     <Background backgroundUrl="/assets/backgrounds/sitting_room.png">
+      {showGuests && (
+        <div className="flex flex-row justify-center">
+          {guests.map((guest) => (
+            <img
+              key={guest.name}
+              src={guest.currentAsset}
+              alt={guest.name}
+              className="w-1/5 animate-appear"
+            />
+          ))}
+        </div>
+      )}
       <GameText next={handleNext} previous={handlePrevious}>
         {scene[action].text}
       </GameText>

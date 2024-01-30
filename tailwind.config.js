@@ -24,6 +24,15 @@ export default {
         xl: '1280px',
         xxl: '1440px',
       },
+      animation: {
+        'appear': 'appear 0.5s linear',
+      },
+      keyframes: {
+        appear: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+      },
     },
   },
   plugins: [],

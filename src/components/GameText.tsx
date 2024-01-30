@@ -60,14 +60,14 @@ export function GameText({
       </Paragraph>
       <div className={'flex justify-end'}>
         <Button
-          className={'w-2/12 pl-2 mr-4 text-xl xl:text-2xl dark:bg-pink'}
+          className={'w-3/12 pl-2 mr-4 text-xl xl:text-2xl dark:bg-pink'}
           onClick={previous}
           disabled={disablePrevious}
         >
           {'< Previous'}
         </Button>
         <Button
-          className={'w-2/12 pl-2 text-xl xl:text-2xl dark:bg-pink'}
+          className={'w-3/12 pl-2 text-xl xl:text-2xl dark:bg-pink'}
           onClick={next}
           disabled={disableNext}
         >
