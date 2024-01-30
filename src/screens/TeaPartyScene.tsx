@@ -1,4 +1,5 @@
 import { GameText } from '@/components';
+import { Character, characters } from '@/models';
 import { welcome } from '@/scenes/welcome';
 import { useTeaStore } from '@/stores';
 import { Background } from '@/templates/Background';
@@ -8,7 +9,12 @@ import { useNavigate } from 'react-router-dom';
 export function TeaPartyScene() {
   const navigate = useNavigate();
   const { ready, numberOfPersons, tea } = useTeaStore();
-  const [scene] = useState(welcome(numberOfPersons, tea));
+  const guests: Character[] = [];
+  for (let i = 0; i < numberOfPersons; i++) {
+    const character = characters[i];
+    guests.push(character);
+  }
+  const [scene] = useState(welcome(numberOfPersons, tea, guests));
   const [action, setAction] = useState(0);
 
   const handleNext = () => {
