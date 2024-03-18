@@ -74,9 +74,34 @@ export class Character {
 }
 
 export const characters = [
-  new Character('Momo', 'girl-1', ['weak', 'mellow'], ['strong', 'velvety']),
-  new Character('Nia', 'girl-2', ['weak', 'velvety'], ['dark', 'sweet']),
-  new Character('Kai', 'boy-1', ['dark', 'strong'], ['sweet', 'mellow']),
-  new Character('Kleverson', 'boy-2', ['sweet', 'mellow'], ['strong', 'dark']),
-  new Character('Mio', 'woman', ['strong', 'dark'], ['refreshing', 'weak']),
+  new Character(
+    'Momo',
+    'girl-1',
+    ['weak', 'mellow', 'light', 'salty'],
+    ['strong', 'velvety', 'bitter'],
+  ),
+  new Character(
+    'Nia',
+    'girl-2',
+    ['weak', 'velvety', 'light', 'bitter'],
+    ['dark', 'sweet', 'salty'],
+  ),
+  new Character(
+    'Kai',
+    'boy-1',
+    ['dark', 'strong', 'bitter'],
+    ['sweet', 'mellow', 'light', 'salty'],
+  ),
+  new Character(
+    'Kleverson',
+    'boy-2',
+    ['sweet', 'mellow', 'light', 'salty'],
+    ['strong', 'dark', 'bitter'],
+  ),
+  new Character(
+    'Mio',
+    'woman',
+    ['strong', 'dark', 'bitter'],
+    ['refreshing', 'weak', 'mellow', 'light', 'salty'],
+  ),
 ];

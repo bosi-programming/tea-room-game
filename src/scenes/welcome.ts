@@ -34,5 +34,6 @@ export const welcome = (
   },
   {
     text: 'You invite them in and sit them down.',
+    action: 'nextScene',
   },
 ];

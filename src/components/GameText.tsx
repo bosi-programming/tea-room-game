@@ -10,6 +10,8 @@ export interface ParagraphProps {
   previous?: () => void;
   disablePrevious?: boolean;
   disableNext?: boolean;
+  choices?: string[];
+  handleSelectChoice?: (choice: string) => void;
 }
 
 export function GameText({
@@ -17,6 +19,8 @@ export function GameText({
   children,
   next,
   previous,
+  choices,
+  handleSelectChoice,
   disableNext,
   disablePrevious,
 }: ParagraphProps) {
@@ -58,22 +62,47 @@ export function GameText({
       <Paragraph className="flex flex-col flex-grow justify-center">
         {children}
       </Paragraph>
-      <div className={'flex justify-end'}>
-        <Button
-          className={'w-3/12 pl-2 mr-4 text-xl xl:text-2xl dark:bg-pink'}
-          onClick={previous}
-          disabled={disablePrevious}
-        >
-          {'< Previous'}
-        </Button>
-        <Button
-          className={'w-3/12 pl-2 text-xl xl:text-2xl dark:bg-pink'}
-          onClick={next}
-          disabled={disableNext}
-        >
-          {'Next >'}
-        </Button>
-      </div>
+      {choices && (
+        <div className={'flex justify-center gap-5'}>
+          {choices.map((choice, index) => (
+            <Button
+              key={index}
+              className={'w-2/12 pl-2 text-xl xl:text-2xl dark:bg-pink'}
+              onClick={() => {
+                handleSelectChoice?.(choice);
+                if (next) {
+                  next();
+                }
+              }}
+            >
+              {choice
+                .replace(/([A-Z])/g, ' $1')
+                .toLowerCase()
+                .replace(/^./, (str) => str.toUpperCase())}
+            </Button>
+          ))}
+        </div>
+      )}
+      {!choices && (
+        <div className={'flex justify-end'}>
+          {!disablePrevious && (
+            <Button
+              className={'w-2/12 pl-2 mr-4 text-xl xl:text-2xl dark:bg-pink'}
+              onClick={previous}
+            >
+              {'< Previous'}
+            </Button>
+          )}
+          {!disableNext && (
+            <Button
+              className={'w-2/12 pl-2 text-xl xl:text-2xl dark:bg-pink'}
+              onClick={next}
+            >
+              {'Next >'}
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   );
 }

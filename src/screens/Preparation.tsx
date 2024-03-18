@@ -19,8 +19,8 @@ const teaOptions = [
 ];
 
 const preparationOptions = [
-  { id: 'gongfu', label: 'Gongfu' },
   { id: 'regular', label: 'Regular' },
+  { id: 'gongfu', label: 'Gongfu' },
 ];
 
 export function Preparation() {

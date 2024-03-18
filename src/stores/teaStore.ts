@@ -12,17 +12,22 @@ export interface TeaPreparation {
 export const teaStoreCreator: StateCreator<TeaPreparation> = (set) => ({
   numberOfPersons: 1,
   tea: 'black',
-  preparation: 'gongfu',
-  numberOfCups: 7,
+  preparation: 'regular',
+  numberOfCups: 3,
   ready: false,
-  setTeaPreparation: (teaPreparation) =>
-    set({
+  setTeaPreparation: (teaPreparation) => {
+    let newNumberOfCups: number;
+    if (teaPreparation.preparation === 'gongfu') {
+      newNumberOfCups = 7;
+    }
+    if (teaPreparation.preparation === 'regular') {
+      newNumberOfCups = 3;
+    }
+    set((state) => ({
       ...teaPreparation,
-      numberOfCups:
-        teaPreparation.preparation && teaPreparation.preparation === 'gongfu'
-          ? 7
-          : 3,
-    }),
+      numberOfCups: newNumberOfCups ? newNumberOfCups : state.numberOfCups,
+    }));
+  },
 });
 
 export const useTeaStore = create<TeaPreparation>(teaStoreCreator);
