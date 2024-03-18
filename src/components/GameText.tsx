@@ -3,7 +3,7 @@ import { Paragraph } from './Paragraph';
 import { useEffect } from 'react';
 import { Button } from './Button';
 
-export interface ParagraphProps {
+export interface GameTextProps {
   className?: string;
   children?: React.ReactNode;
   next?: () => void;
@@ -23,7 +23,7 @@ export function GameText({
   handleSelectChoice,
   disableNext,
   disablePrevious,
-}: ParagraphProps) {
+}: GameTextProps) {
   useEffect(() => {
     const canPrevious = previous && !disablePrevious;
     const canNext = next && !disableNext;
