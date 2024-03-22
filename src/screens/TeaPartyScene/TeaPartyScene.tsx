@@ -1,48 +1,34 @@
 import { GameText } from '@/components';
 import { Character, characters, teas } from '@/models';
-import { end } from '@/scenes/end';
-import { teaSession } from '@/scenes/teaSession';
 import { welcome } from '@/scenes/welcome';
 import { useTeaStore } from '@/stores';
 import { Background } from '@/templates/Background';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IAction } from './TeaPartyScene.types';
-import { calculatePoints } from './TeaPartyScene.utils';
+import { teaPartyReducer } from './TeaPartyScene.reducer';
 
 export function TeaPartyScene() {
   const navigate = useNavigate();
   const { ready, numberOfPersons, tea, numberOfCups } = useTeaStore();
-  const guests: Character[] = [];
+  const initialGuests: Character[] = [];
   for (let i = 0; i < numberOfPersons; i++) {
     const character = characters[i];
-    guests.push(character);
+    initialGuests.push(character);
   }
-  const [pointsPerSession, setPointsPerSession] = useState<number[]>([]);
-  const [tasteDetails, setTasteDetails] = useState<string[]>([]);
-  const [infusionNumber, setInfusionNumber] = useState(1);
-  const [showGuests, setShowGuests] = useState(false);
-  const [scene, setScene] = useState<IAction[]>(
-    welcome(numberOfPersons, tea, guests),
-  );
   const [action, setAction] = useState(0);
-
-  const resetState = () => {
-    guests.forEach((guest) => {
-      guest.currentAsset = guest.assets.smile;
-    });
-    const totalPoints = pointsPerSession.reduce(
-      (acc, points) => acc + points,
-      0,
-    );
-    setScene(end(totalPoints));
-    setAction(0);
-    setInfusionNumber(0);
-  }
+  const [state, dispatch] = useReducer(teaPartyReducer, {
+    guests: initialGuests,
+    scene: welcome(numberOfPersons, tea, initialGuests),
+    tasteDetails: [],
+    pointsPerSession: [],
+    infusionNumber: 1,
+    showGuests: false,
+  });
+  const { guests, scene, tasteDetails, pointsPerSession, infusionNumber, showGuests } = state;
 
   const handleSelectChoice = (choice: string) => {
     const newTastes = teas[tea][choice].flatMap((taste) => taste);
-    setTasteDetails([...tasteDetails, ...newTastes]);
+    dispatch({ type: 'tasteChoice', payload: { newTasteDetails: newTastes, numberOfCups, tea } });
   };
 
   const handleNext = () => {
@@ -51,48 +37,20 @@ export function TeaPartyScene() {
     }
 
     if (action < scene.length) {
-      if (scene[action]?.action === 'showGuests') {
-        setShowGuests(true);
-      }
-      if (scene[action]?.action === 'hideGuests') {
-        setShowGuests(false);
-      }
-      if (scene[action].action === 'calculatePoints') {
-        const points = calculatePoints(guests, tasteDetails);
-        setPointsPerSession([...pointsPerSession, points]);
-      }
-      if (
-        scene[action].action === 'nextScene' &&
-        infusionNumber <= numberOfCups
-      ) {
-        setScene(teaSession(infusionNumber, tea));
-        setInfusionNumber(infusionNumber + 1);
-        setAction(0);
-        setTasteDetails([]);
-        return;
-      }
-      if (scene[action].action === 'nextScene') {
-        resetState();
-        return;
-      }
       setAction(action + 1);
-      return;
-    } else {
-      navigate('/tea-party');
+      const dispatchType = scene[action].action as 'showGuests' | 'hideGuests' | 'calculatePoints' | 'nextScene';
+      dispatch({ type: dispatchType, payload: { numberOfCups, tea } });
+      if (dispatchType === 'nextScene') {
+        setAction(0);
+      }
     }
   };
 
   const handlePrevious = () => {
     if (action > 0) {
       setAction(action - 1);
-      if (scene[action].action === 'showGuests') {
-        setShowGuests(false);
-      }
-      if (scene[action].action === 'hideGuests') {
-        setShowGuests(true);
-      }
-    } else {
-      navigate('/tea-party');
+      const dispatchType = scene[action].action as 'showGuests' | 'hideGuests' | 'calculatePoints' | 'nextScene';
+      dispatch({ type: dispatchType, payload: { numberOfCups, tea } });
     }
   };
 
