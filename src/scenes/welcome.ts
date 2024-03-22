@@ -11,6 +11,7 @@ export const welcome = (
     },
     {
       text: `You have prepared the tea set and the tea leaves. You are preparing ${tea} tea today`,
+      action: 'showGuests',
     },
     {
       text: `You hear a knock on the door. You open it and see ${guests.length > 1
@@ -25,7 +26,6 @@ export const welcome = (
         )
         : `${guests[0].name}`
         }`,
-      action: 'showGuests',
     },
     {
       text: 'You invite them in and sit them down.',

@@ -1,24 +1,20 @@
 import { GameText } from '@/components';
-import { Character, characters, teas } from '@/models';
+import { teas } from '@/models';
 import { welcome } from '@/scenes/welcome';
 import { useTeaStore } from '@/stores';
 import { Background } from '@/templates/Background';
 import { useEffect, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { teaPartyReducer } from './TeaPartyScene.reducer';
+import { populateGuests } from './TeaPartyScene.utils';
 
 export function TeaPartyScene() {
   const navigate = useNavigate();
   const { ready, numberOfPersons, tea, numberOfCups } = useTeaStore();
-  const initialGuests: Character[] = [];
-  for (let i = 0; i < numberOfPersons; i++) {
-    const character = characters[i];
-    initialGuests.push(character);
-  }
   const [action, setAction] = useState(0);
   const [state, dispatch] = useReducer(teaPartyReducer, {
-    guests: initialGuests,
-    scene: welcome(numberOfPersons, tea, initialGuests),
+    guests: populateGuests(numberOfPersons),
+    scene: welcome(numberOfPersons, tea, populateGuests(numberOfPersons)),
     tasteDetails: [],
     pointsPerSession: [],
     infusionNumber: 1,
@@ -37,20 +33,21 @@ export function TeaPartyScene() {
     }
 
     if (action < scene.length) {
-      setAction(action + 1);
       const dispatchType = scene[action].action as 'showGuests' | 'hideGuests' | 'calculatePoints' | 'nextScene';
       dispatch({ type: dispatchType, payload: { numberOfCups, tea } });
       if (dispatchType === 'nextScene') {
         setAction(0);
+      } else {
+        setAction(action + 1);
       }
     }
   };
 
   const handlePrevious = () => {
     if (action > 0) {
-      setAction(action - 1);
       const dispatchType = scene[action].action as 'showGuests' | 'hideGuests' | 'calculatePoints' | 'nextScene';
-      dispatch({ type: dispatchType, payload: { numberOfCups, tea } });
+      dispatch({ type: dispatchType === 'showGuests' ? 'hideGuests' : dispatchType, payload: { numberOfCups, tea } });
+      setAction(action - 1);
     }
   };
 
