@@ -17,7 +17,7 @@ module.exports = {
     project: ['./tsconfig.json', './tsconfig.node.json'],
     tsconfigRootDir: __dirname,
   },
-  plugins: ['react-refresh', '@tanstack/query', 'prettier'],
+  plugins: ['react-refresh', '@tanstack/query'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',
@@ -28,7 +28,6 @@ module.exports = {
       'single',
       { allowTemplateLiterals: true, avoidEscape: true },
     ],
-    "prettier/prettier": "error"
   },
   settings: {
     react: { version: 'detect' },

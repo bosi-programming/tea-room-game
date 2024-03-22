@@ -7,6 +7,8 @@ import { useTeaStore } from '@/stores';
 import { Background } from '@/templates/Background';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { IAction } from './TeaPartyScene.types';
+import { calculatePoints } from './TeaPartyScene.utils';
 
 export function TeaPartyScene() {
   const navigate = useNavigate();
@@ -16,20 +18,27 @@ export function TeaPartyScene() {
     const character = characters[i];
     guests.push(character);
   }
-  const [pointsPerSession, setPointsPerSession] = useState<number>(0);
-  const [totalPoints, setTotalPoints] = useState(0);
+  const [pointsPerSession, setPointsPerSession] = useState<number[]>([]);
   const [tasteDetails, setTasteDetails] = useState<string[]>([]);
   const [infusionNumber, setInfusionNumber] = useState(1);
   const [showGuests, setShowGuests] = useState(false);
-  const [scene, setScene] = useState<
-    {
-      text: string | ((tasteDetails: string) => string);
-      action?: string;
-      choices?: string[];
-      payload?: string;
-    }[]
-  >(welcome(numberOfPersons, tea, guests));
+  const [scene, setScene] = useState<IAction[]>(
+    welcome(numberOfPersons, tea, guests),
+  );
   const [action, setAction] = useState(0);
+
+  const resetState = () => {
+    guests.forEach((guest) => {
+      guest.currentAsset = guest.assets.smile;
+    });
+    const totalPoints = pointsPerSession.reduce(
+      (acc, points) => acc + points,
+      0,
+    );
+    setScene(end(totalPoints));
+    setAction(0);
+    setInfusionNumber(0);
+  }
 
   const handleSelectChoice = (choice: string) => {
     const newTastes = teas[tea][choice].flatMap((taste) => taste);
@@ -42,19 +51,15 @@ export function TeaPartyScene() {
     }
 
     if (action < scene.length) {
-      if (scene[action + 1]?.action === 'showGuests') {
+      if (scene[action]?.action === 'showGuests') {
         setShowGuests(true);
       }
-      if (scene[action + 1]?.action === 'hideGuests') {
+      if (scene[action]?.action === 'hideGuests') {
         setShowGuests(false);
       }
       if (scene[action].action === 'calculatePoints') {
-        const points = guests.reduce(
-          (acc, guest) => acc + guest.points(tasteDetails),
-          0,
-        );
-        setPointsPerSession(points);
-        setTotalPoints(totalPoints + points);
+        const points = calculatePoints(guests, tasteDetails);
+        setPointsPerSession([...pointsPerSession, points]);
       }
       if (
         scene[action].action === 'nextScene' &&
@@ -64,16 +69,10 @@ export function TeaPartyScene() {
         setInfusionNumber(infusionNumber + 1);
         setAction(0);
         setTasteDetails([]);
-        setPointsPerSession(0);
         return;
       }
       if (scene[action].action === 'nextScene') {
-        guests.forEach((guest) => {
-          guest.currentAsset = guest.assets.smile;
-        });
-        setScene(end(totalPoints));
-        setAction(0);
-        setInfusionNumber(0);
+        resetState();
         return;
       }
       setAction(action + 1);
@@ -86,11 +85,11 @@ export function TeaPartyScene() {
   const handlePrevious = () => {
     if (action > 0) {
       setAction(action - 1);
-      if (scene[action - 1].action === 'showGuests') {
-        setShowGuests(true);
-      }
-      if (scene[action - 1].action === 'hideGuests') {
+      if (scene[action].action === 'showGuests') {
         setShowGuests(false);
+      }
+      if (scene[action].action === 'hideGuests') {
+        setShowGuests(true);
       }
     } else {
       navigate('/tea-party');
@@ -133,10 +132,10 @@ export function TeaPartyScene() {
         {typeof text === 'string'
           ? text
           : text(
-              payload === 'tasteDetails'
-                ? tasteDetails?.join(', ').replace(/,(?!.*,)/gim, ' and')
-                : pointsPerSession?.toString(),
-            )}
+            payload === 'tasteDetails'
+              ? tasteDetails?.join(', ').replace(/,(?!.*,)/gim, ' and')
+              : pointsPerSession[infusionNumber - 2]?.toString(),
+          )}
       </GameText>
     </Background>
   );

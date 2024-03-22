@@ -1,4 +1,4 @@
 export * from './Main';
 export * from './Credits';
 export * from './Preparation';
-export * from './TeaPartyScene';
+export * from './TeaPartyScene/TeaPartyScene';

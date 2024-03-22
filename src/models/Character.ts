@@ -40,12 +40,16 @@ export class Character {
         this._currentAsset = this._assets.smile;
         break;
       case 2:
+      case 3:
+      case 4:
         this._currentAsset = this._assets.happy;
         break;
       case -1:
         this._currentAsset = this._assets.annoyed;
         break;
       case -2:
+      case -3:
+      case -4:
         this._currentAsset = this._assets.smug;
         break;
     }
