@@ -2,6 +2,8 @@ import { Heading, Paragraph, Selector } from '@/components';
 import { useTeaStore } from '@/stores';
 import { NoBackground } from '@/templates';
 import { useNavigate } from 'react-router-dom';
+import i18n from '../i18n';
+import { useTranslation } from 'react-i18next';
 
 const numberOfPeopleOptions = [
   { id: 1, label: '1' },
@@ -12,10 +14,10 @@ const numberOfPeopleOptions = [
 ];
 
 const teaOptions = [
-  { id: 'green', label: 'Green' },
-  { id: 'black', label: 'Black' },
-  { id: 'ripe', label: 'Ripe puerh' },
-  { id: 'raw', label: 'Raw puerh' },
+  { id: 'green', label: i18n.t('preparation:greenTea') },
+  { id: 'black', label: i18n.t('preparation:blackTea') },
+  { id: 'ripe', label: i18n.t('preparation:ripePuerh') },
+  { id: 'raw', label: i18n.t('preparation:rawPuerh') },
 ];
 
 const preparationOptions = [
@@ -24,6 +26,7 @@ const preparationOptions = [
 ];
 
 export function Preparation() {
+  const { t } = useTranslation(['preparation']);
   const navigate = useNavigate();
   const { numberOfPersons, tea, preparation, setTeaPreparation } =
     useTeaStore();
@@ -31,21 +34,19 @@ export function Preparation() {
   return (
     <NoBackground className="justify-between">
       <Heading className="grow-0 text-5xl underline mb-10 xl:mb-20">
-        Preparations
+        {t('title')}
       </Heading>
       <div className="grow flex flex-col justify-around">
         <div>
           <Paragraph>
-            You are a tea master. Your friends are coming over for tea. You need
-            to prepare tea for them.
+            {t('explanation1')}
           </Paragraph>
           <Paragraph>
-            You have a tea table with a tea pot, a tea pitcher, and some tea
-            cups.
+            {t('explanation2')}
           </Paragraph>
           <div className="grid grid-cols-8 gap-2 mt-10 justify-center align-middle">
             <Paragraph className="col-start-3 col-end-6">
-              How many friends are coming over for tea?
+              {t('howManyFriends')}
             </Paragraph>
             <Selector
               value={numberOfPersons.toString()}
@@ -56,7 +57,7 @@ export function Preparation() {
               className="col-start-6 w-32 mb-0"
             />
             <Paragraph className="col-start-3 col-end-6">
-              What tea will you prepare for them?
+              {t('whatTea')}
             </Paragraph>
             <Selector
               value={tea}
@@ -65,7 +66,7 @@ export function Preparation() {
               className="col-start-6 w-32 mb-0"
             />
             <Paragraph className="col-start-3 col-end-6">
-              In what way will you prepare the tea?
+              {t('howToPrepare')}
             </Paragraph>
             <Selector
               value={preparation}
@@ -84,7 +85,7 @@ export function Preparation() {
           }}
           className="w-fit mx-auto hover:scale-125"
         >
-          <Heading>I&apos;m ready</Heading>
+          <Heading>{t('ready')}</Heading>
         </button>
       </div>
     </NoBackground>

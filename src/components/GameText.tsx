@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { Paragraph } from './Paragraph';
 import { useEffect } from 'react';
 import { Button } from './Button';
+import { useTranslation } from 'react-i18next';
 
 export interface GameTextProps {
   className?: string;
@@ -24,6 +25,7 @@ export function GameText({
   disableNext,
   disablePrevious,
 }: GameTextProps) {
+  const { t } = useTranslation(['menu']);
   useEffect(() => {
     const canPrevious = previous && !disablePrevious;
     const canNext = next && !disableNext;
@@ -75,10 +77,7 @@ export function GameText({
                 }
               }}
             >
-              {choice
-                .replace(/([A-Z])/g, ' $1')
-                .toLowerCase()
-                .replace(/^./, (str) => str.toUpperCase())}
+              {t(choice)}
             </Button>
           ))}
         </div>
@@ -90,7 +89,7 @@ export function GameText({
               className={'w-2/12 pl-2 mr-4 text-xl xl:text-2xl dark:bg-pink'}
               onClick={previous}
             >
-              {'< Previous'}
+              {t('previous')}
             </Button>
           )}
           {!disableNext && (
@@ -98,7 +97,7 @@ export function GameText({
               className={'w-2/12 pl-2 text-xl xl:text-2xl dark:bg-pink'}
               onClick={next}
             >
-              {'Next >'}
+              {t('next')}
             </Button>
           )}
         </div>
