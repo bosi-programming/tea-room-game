@@ -14,10 +14,10 @@ const numberOfPeopleOptions = [
 ];
 
 const teaOptions = [
-  { id: 'green', label: i18n.t('preparation:greenTea') },
-  { id: 'black', label: i18n.t('preparation:blackTea') },
-  { id: 'ripe', label: i18n.t('preparation:ripePuerh') },
-  { id: 'raw', label: i18n.t('preparation:rawPuerh') },
+  { id: 'green', label: i18n.t('tea:green') },
+  { id: 'black', label: i18n.t('tea:black') },
+  { id: 'ripe', label: i18n.t('tea:ripe') },
+  { id: 'raw', label: i18n.t('tea:raw') },
 ];
 
 const preparationOptions = [

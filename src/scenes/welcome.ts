@@ -1,3 +1,4 @@
+import i18n from '@/i18n';
 import { Character } from '@/models';
 
 export const welcome = (
@@ -6,29 +7,29 @@ export const welcome = (
   guests: Character[],
 ) => [
     {
-      text: `You're in your tea room, waiting for your ${numberOfPerson > 1 ? `${numberOfPerson} guests` : 'guest'
-        } to arrive.`,
+      text: i18n.t('welcome:waitingForGuests', { count: numberOfPerson }),
     },
     {
-      text: `You have prepared the tea set and the tea leaves. You are preparing ${tea} tea today`,
+      text: i18n.t('welcome:preparingTeaSet', { tea: i18n.t(`tea:${tea}`).toLowerCase() }),
       action: 'showGuests',
     },
     {
-      text: `You hear a knock on the door. You open it and see ${guests.length > 1
-        ? guests.reduce(
-          (acc, guest, currentIndex) =>
-            `${acc}${currentIndex === 0 || currentIndex === guests.length - 1
-              ? ''
-              : ','
-            }${currentIndex === guests.length - 1 ? ' and ' : ' '}${guest.name
-            }`,
-          '',
-        )
-        : `${guests[0].name}`
-        }`,
+      text: i18n.t('welcome:guestsArrived', {
+        guestsNames:
+          guests.length > 1 ? guests.reduce(
+            (acc, guest, currentIndex) =>
+              `${acc}${currentIndex === 0 || currentIndex === guests.length - 1
+                ? ''
+                : ','
+              }${currentIndex === guests.length - 1 ? ` ${i18n.t('common:and')} ` : ' '}${guest.name
+              }`,
+            '',
+          )
+            : `${guests[0].name}`
+      }),
     },
     {
-      text: 'You invite them in and sit them down.',
+      text: i18n.t('welcome:inviteGuests', { count: numberOfPerson }),
       action: 'nextScene',
     },
   ];

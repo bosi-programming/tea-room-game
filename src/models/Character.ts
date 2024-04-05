@@ -1,3 +1,5 @@
+import { tastes } from './Tea';
+
 export class Character {
   private _name: string;
   private _assets: {
@@ -81,31 +83,31 @@ export const characters = [
   new Character(
     'Momo',
     'girl-1',
-    ['weak', 'mellow', 'light', 'salty'],
-    ['strong', 'velvety', 'bitter'],
+    [tastes.weak, tastes.mellow, tastes.light, tastes.salty],
+    [tastes.strong, tastes.velvety, tastes.bitter],
   ),
   new Character(
     'Nia',
     'girl-2',
-    ['weak', 'velvety', 'light', 'bitter'],
-    ['dark', 'sweet', 'salty'],
+    [tastes.weak, tastes.velvety, tastes.light, tastes.bitter],
+    [tastes.dark, tastes.sweet, tastes.salty],
   ),
   new Character(
     'Kai',
     'boy-1',
-    ['dark', 'strong', 'bitter'],
-    ['sweet', 'mellow', 'light', 'salty'],
+    [tastes.dark, tastes.strong, tastes.bitter],
+    [tastes.sweet, tastes.mellow, tastes.light, tastes.salty],
   ),
   new Character(
     'Kleverson',
     'boy-2',
-    ['sweet', 'mellow', 'light', 'salty'],
-    ['strong', 'dark', 'bitter'],
+    [tastes.sweet, tastes.mellow, tastes.light, tastes.salty],
+    [tastes.strong, tastes.dark, tastes.bitter],
   ),
   new Character(
     'Mio',
     'woman',
-    ['strong', 'dark', 'bitter'],
-    ['refreshing', 'weak', 'mellow', 'light', 'salty'],
+    [tastes.strong, tastes.dark, tastes.bitter],
+    [tastes.weak, tastes.mellow, tastes.light, tastes.salty],
   ),
 ];

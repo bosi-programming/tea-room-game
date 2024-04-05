@@ -53,7 +53,7 @@ export function teaPartyReducer(state: ITeaPartyState, action: IReducerAction): 
       if (state.infusionNumber <= action.payload.numberOfCups) {
         return {
           ...state,
-          scene: teaSession(state.infusionNumber, action.payload.tea),
+          scene: teaSession(state.infusionNumber, action.payload.tea, state.guests.length),
           infusionNumber: state.infusionNumber + 1,
           tasteDetails: [],
         };

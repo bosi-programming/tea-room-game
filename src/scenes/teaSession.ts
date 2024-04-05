@@ -1,39 +1,37 @@
+import i18n from '@/i18n';
+
 const infusions = [
-  'first',
-  'second',
-  'third',
-  'fourth',
-  'fifth',
-  'sixth',
-  'seventh',
-  'eighth',
-  'ninth',
-  'tenth',
+  i18n.t('infusionNumber:first'),
+  i18n.t('infusionNumber:second'),
+  i18n.t('infusionNumber:third'),
+  i18n.t('infusionNumber:fourth'),
+  i18n.t('infusionNumber:fifth'),
+  i18n.t('infusionNumber:sixth'),
+  i18n.t('infusionNumber:seventh'),
+  i18n.t('infusionNumber:eighth'),
+  i18n.t('infusionNumber:ninth'),
+  i18n.t('infusionNumber:tenth'),
 ];
-export const teaSession = (infusionNumber: number, tea: string) => [
+export const teaSession = (infusionNumber: number, tea: string, numberOfGuests: number) => [
   {
-    text: `You start to prepare the ${
-      infusions[infusionNumber - 1]
-    } infusion of your ${tea} tea for your guests. What to you want to focus on?`,
+    text: i18n.t('teaSession:start', { tea: i18n.t(`tea:${tea}`).toLowerCase(), infusionNumber: infusions[infusionNumber - 1], count: numberOfGuests }),
     choices: ['higherTemperature', 'lowerTemperature'],
   },
   {
-    text: 'What more do you want to focus on?',
+    text: i18n.t('teaSession:brewTime'),
     choices: ['longerBrewTime', 'shorterBrewTime'],
   },
   {
-    text: 'You serve the tea. You and the guests start to drink the tea.',
+    text: i18n.t('teaSession:serve', { count: numberOfGuests }),
     action: 'hidePrevious',
   },
   {
-    text: (tasteDetails: string) =>
-      `You taste the tea. It tastes ${tasteDetails}.`,
+    text: (tasteDetails: string) => i18n.t('teaSession:tasteDetails', { tasteDetails }),
     action: 'calculatePoints',
     payload: 'tasteDetails',
   },
   {
-    text: (pointsPerSession: string) =>
-      `Your points for this session is ${pointsPerSession}.`,
+    text: (pointsPerSession: string) => i18n.t('teaSession:points', { pointsPerSession }),
     action: 'nextScene',
   },
 ];

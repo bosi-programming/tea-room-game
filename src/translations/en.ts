@@ -1,4 +1,7 @@
 export const en = {
+  common: {
+    and: 'and',
+  },
   main: {
     title: 'Prepare tea for your friends',
     start: 'Start Game',
@@ -32,16 +35,28 @@ export const en = {
     longerBrewTime: 'Longer brew time',
     shorterBrewTime: 'Shorter brew time',
   },
+  taste: {
+    bitter: 'bitter',
+    dark: 'dark',
+    light: 'light',
+    mellow: 'mellow',
+    salty: 'salty',
+    strong: 'strong',
+    sweet: 'sweet',
+    velvety: 'velvety',
+    weak: 'weak',
+  },
   welcome: {
-    waitingForGuests_one: "You're in your tea room, waiting for your guest to arrive.",
-    waitingForGuests_other: "You're in your tea room, waiting for your guests to arrive.",
-    preparingTeaSet: 'You have prepared the tea set and the tea leaves. You are preparing {{tea}} tea today',
+    waitingForGuests_one: "You're in your tea room waiting for your guest to arrive.",
+    waitingForGuests_other: "You're in your tea room waiting for your guests to arrive.",
+    preparingTeaSet: 'You have prepared the tea set and the leaves. You are preparing {{tea}} tea today',
     guestsArrived: 'You hear a knock on the door. You open it and see {{guestsNames}}',
     inviteGuests_one: 'You invite them in and sit them down.',
     inviteGuests_other: 'You invite them in and sit them down.',
   },
   teaSession: {
-    start: 'You start to prepare the {{infusionNumber}} infusion of your {{tea}} tea for your guests. What to you want to focus on?',
+    start_one: 'You start to prepare the {{infusionNumber}} infusion of your {{tea}} tea for your guest. What to you want to focus on?',
+    start_other: 'You start to prepare the {{infusionNumber}} infusion of your {{tea}} tea for your guests. What to you want to focus on?',
     brewTime: 'What more do you want to focus on?',
     serve_one: 'You serve the tea. You and your guest start to drink the tea.',
     serve_other: 'You serve the tea. You and the guests start to drink the tea.',
@@ -50,5 +65,17 @@ export const en = {
   },
   end: {
     endMessage: 'You have finished the tea session. Total points: {{totalPoints}}.'
+  },
+  infusionNumber: {
+    first: 'first',
+    second: 'second',
+    third: 'third',
+    fourth: 'fourth',
+    fifth: 'fifth',
+    sixth: 'sixth',
+    seventh: 'seventh',
+    eighth: 'eighth',
+    ninth: 'ninth',
+    tenth: 'tenth',
   }
 }

@@ -7,8 +7,10 @@ import { useEffect, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { teaPartyReducer } from './TeaPartyScene.reducer';
 import { populateGuests } from './TeaPartyScene.utils';
+import { useTranslation } from 'react-i18next';
 
 export function TeaPartyScene() {
+  const { t } = useTranslation(['common']);
   const navigate = useNavigate();
   const { ready, numberOfPersons, tea, numberOfCups } = useTeaStore();
   const [action, setAction] = useState(0);
@@ -88,7 +90,7 @@ export function TeaPartyScene() {
           ? text
           : text(
             payload === 'tasteDetails'
-              ? tasteDetails?.join(', ').replace(/,(?!.*,)/gim, ' and')
+              ? tasteDetails?.join(', ').replace(/,(?!.*,)/gim, ` ${t('common:and')} `)
               : pointsPerSession[infusionNumber - 2]?.toString(),
           )}
       </GameText>
